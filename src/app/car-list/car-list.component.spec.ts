@@ -23,11 +23,12 @@ export class CarService {
     switch (sorting) {
       case 'highest':
         this.carList = this.carList.sort(
-          (prev, next) => next.fare.totalAmount - prev.fare.totalAmount
+          (prev: any, next: any) =>
+            next.fare.totalAmount - prev.fare.totalAmount
         );
         return this.carList;
       case 'rentalAscending':
-        this.carList = this.carList.sort((prev, next) => {
+        this.carList = this.carList.sort((prev: any, next: any) => {
           if (prev.vehicle.name < next.vehicle.name) {
             return -1;
           }
@@ -38,7 +39,7 @@ export class CarService {
         });
         return this.carList;
       case 'rentalDesc':
-        this.carList = this.carList.sort((prev, next) => {
+        this.carList = this.carList.sort((prev: any, next: any) => {
           if (prev.vehicle.name > next.vehicle.name) {
             return -1;
           }
@@ -49,7 +50,7 @@ export class CarService {
         });
         return this.carList;
       case 'typeAsc':
-        this.carList = this.carList.sort((prev, next) => {
+        this.carList = this.carList.sort((prev: any, next: any) => {
           if (prev.vehicle.type < next.vehicle.type) {
             return -1;
           }
@@ -60,7 +61,7 @@ export class CarService {
         });
         return this.carList;
       case 'typeDesc':
-        this.carList = this.carList.sort((prev, next) => {
+        this.carList = this.carList.sort((prev: any, next: any) => {
           if (prev.vehicle.type > next.vehicle.type) {
             return -1;
           }
@@ -72,7 +73,8 @@ export class CarService {
         return this.carList;
       default:
         this.carList = this.carList.sort(
-          (prev, next) => prev.fare.totalAmount - next.fare.totalAmount
+          (prev: any, next: any) =>
+            prev.fare.totalAmount - next.fare.totalAmount
         );
         return this.carList;
     }
