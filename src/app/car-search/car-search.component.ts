@@ -7,11 +7,14 @@ import { driverAge } from './driver-age';
 @Component({
   selector: 'app-car-search',
   templateUrl: './car-search.component.html',
-  styleUrls: ['./car-search.component.css']
+  styleUrls: ['./car-search.component.css'],
 })
 export class CarSearchComponent implements OnInit {
-
-  constructor(private fromBuilder: FormBuilder, private router: Router, private carService: CarService) { }
+  constructor(
+    private fromBuilder: FormBuilder,
+    private router: Router,
+    private carService: CarService
+  ) {}
 
   carSearchFrom!: FormGroup;
 
@@ -24,14 +27,12 @@ export class CarSearchComponent implements OnInit {
       toDate: ['', Validators.required],
       fromTime: ['', Validators.required],
       toTime: ['', Validators.required],
-      driverAge: ['', Validators.required]
+      driverAge: ['', Validators.required],
     });
   }
 
   submit() {
-    console.log(this.carSearchFrom.getRawValue());
     this.carService.setSearchInfo(this.carSearchFrom.getRawValue());
-    this.router.navigate(['/car-list'])
+    this.router.navigate(['/car-list']);
   }
-
 }

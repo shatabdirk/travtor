@@ -1,25 +1,80 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { car_list } from './car-list.const';
 
-import { CarListComponent } from './car-list.component';
+@Injectable({
+  providedIn: 'root',
+})
+export class CarService {
+  searchInfo$ = new Subject();
+  carList = car_list.CarItineraries;
 
-describe('CarListComponent', () => {
-  let component: CarListComponent;
-  let fixture: ComponentFixture<CarListComponent>;
+  constructor() {}
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ CarListComponent ]
-    })
-    .compileComponents();
-  });
+  setSearchInfo(searchInfo: any) {
+    this.searchInfo$.next(searchInfo);
+  }
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(CarListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  getSerachInfo() {
+    return this.searchInfo$;
+  }
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  filterList(sorting: string) {
+    switch (sorting) {
+      case 'highest':
+        this.carList = this.carList.sort(
+          (prev, next) => next.fare.totalAmount - prev.fare.totalAmount
+        );
+        return this.carList;
+      case 'rentalAscending':
+        this.carList = this.carList.sort((prev, next) => {
+          if (prev.vehicle.name < next.vehicle.name) {
+            return -1;
+          }
+          if (prev.vehicle.name > next.vehicle.name) {
+            return 1;
+          }
+          return 0;
+        });
+        return this.carList;
+      case 'rentalDesc':
+        this.carList = this.carList.sort((prev, next) => {
+          if (prev.vehicle.name > next.vehicle.name) {
+            return -1;
+          }
+          if (prev.vehicle.name < next.vehicle.name) {
+            return 1;
+          }
+          return 0;
+        });
+        return this.carList;
+      case 'typeAsc':
+        this.carList = this.carList.sort((prev, next) => {
+          if (prev.vehicle.type < next.vehicle.type) {
+            return -1;
+          }
+          if (prev.vehicle.type > next.vehicle.type) {
+            return 1;
+          }
+          return 0;
+        });
+        return this.carList;
+      case 'typeDesc':
+        this.carList = this.carList.sort((prev, next) => {
+          if (prev.vehicle.type > next.vehicle.type) {
+            return -1;
+          }
+          if (prev.vehicle.type < next.vehicle.type) {
+            return 1;
+          }
+          return 0;
+        });
+        return this.carList;
+      default:
+        this.carList = this.carList.sort(
+          (prev, next) => prev.fare.totalAmount - next.fare.totalAmount
+        );
+        return this.carList;
+    }
+  }
+}

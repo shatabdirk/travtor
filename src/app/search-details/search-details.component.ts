@@ -1,15 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-search-details',
   templateUrl: './search-details.component.html',
   styleUrls: ['./search-details.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchDetailsComponent {
-
-  @Input() 
+  @Input()
   searchInfo: any;
 
-  constructor() { }
+  constructor() {}
 }
